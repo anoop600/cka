@@ -13,7 +13,15 @@ alias watchnodes="watch -n0 kubectl get no --show-labels"
 alias watchpv="watch -n0 kubectl get pv --show-labels"
 alias watchcontext="watch -n0 kubectl config get-contexts"
 alias kevent="kubectl get ev -A -w"
+set_context(){
+ if [ -z "$1" ]; then
+    echo "Usage: set_context <namespace>"
+    return 1
+  fi
 
+  NAMESPACE=$1
+  kubectl config set-context --current --namespace "$NAMESPACE"
+}
 debug() {
   # Check if the namespace is provided
   if [ -z "$1" ]; then
