@@ -1,0 +1,7 @@
+apiVersion: stable.example.com/v1
+kind: Shirt
+metadata:
+  name: anoop
+spec:
+  color: red
+  size: 32

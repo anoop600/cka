@@ -1,0 +1,63 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+      - foo.bar.com
+    secretName: testsecret-tls
+  ingressClassName: nginx-example
+  defaultBackend:
+    service:
+      name: test
+      port:
+        number: 80
+  rules:
+  - host: "foo.bar.com"
+    http:
+      paths:
+      - path: /testpath
+        pathType: Prefix
+        backend:
+          service:
+            name: test
+            port:
+              number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: testapi
+            port:
+              number: 80
+  - host: "bar.bar.com""
+    http:
+      paths:
+      - path: /testpathone
+        pathType: Prefix
+        backend:
+          service:
+            name: testone
+            port:
+              number: 80
+      - path: /apione
+        pathType: Prefix
+        backend:
+          service:
+            name: testapione
+            port:
+              number: 80
+  - host: "*.foo.com""
+    http:
+      paths:
+      - path: /testpath
+        pathType: Prefix
+        backend:
+          service:
+            name: test
+            port:
+              number: 80
+
